@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from django.conf.urls import url, include
 from . import views
 
@@ -24,3 +25,13 @@ urlpatterns = [
     url(r'^ejemplo3/$', views.ejemplo3),
     url(r'^ejemplo4/$', views.ejemplo4),
 '''
+=======
+from django.conf.urls import url
+
+from . import views
+
+app_name = 'polls'
+urlpatterns = [
+    url(r'^registrar/$', views.registrar, name='registrar'),
+]
+>>>>>>> 6f27efc8b21ca034fe4a3fb0b27524c423b95c0c
