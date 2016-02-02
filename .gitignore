@@ -1,0 +1,7 @@
+settings.py
+*.pyc
+.DS_Store
+Icon
+._*
+Trashes
+*.pdf
