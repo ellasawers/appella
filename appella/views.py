@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
@@ -6,6 +5,7 @@ from models import Usuario
 from django.template import RequestContext
 from forms import UploadFileForm
 from models import Area
+from .forms import FormaRegistro
 # Create your views here.
 def index(request):
 #	return render_to_response('index.html', context_instance=RequestContext(request))
@@ -62,12 +62,6 @@ def insertar(request):
 	except Exception as e:
 		return render_to_response('insertar.html', {})
 '''
-=======
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
-
-from .models import Usuario, Area
-from .forms import FormaRegistro
 
 def registrar(request):
 	if request.method == 'POST':
@@ -88,5 +82,3 @@ def registrar(request):
 		formulario = FormaRegistro()
 	return render(request, 'registrar.html', {'form': formulario})
 
-
->>>>>>> 6f27efc8b21ca034fe4a3fb0b27524c423b95c0c
