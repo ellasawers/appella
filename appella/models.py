@@ -27,7 +27,7 @@ class Usuario(models.Model):
     us_ap_paterno = models.CharField(max_length=25)
     us_ap_materno = models.CharField(max_length=25)
     us_telefono = models.CharField(max_length=20)
-    us_img = models.FileField()
+    us_img = models.FileField(upload_to="media/%Y%m%d_%H-%M-%s")
     area = models.ForeignKey(Area, on_delete=models.CASCADE, verbose_name="tiene muchos")
 
 class Expediente(models.Model):
@@ -43,7 +43,7 @@ class Zona(models.Model):
 class Perdido(models.Model):
     id_perdido = models.AutoField(primary_key=True)
     pe_fecha = models.CharField(max_length=25)
-    pe_img = models.FileField()
+    pe_img = models.FileField(upload_to="media/%Y%m%d_%H-%M-%s")
     pe_texto = models.CharField(max_length=140)
     expediente = models.OneToOneField(Expediente, on_delete=models.CASCADE, verbose_name="tiene un")
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, verbose_name="tiene muchos")
@@ -51,7 +51,7 @@ class Perdido(models.Model):
 class Encontrado(models.Model):
     id_encontrado = models.AutoField(primary_key=True)
     en_fecha = models.CharField(max_length=25)
-    en_img = models.FileField()
+    en_img = models.FileField(upload_to="media/%Y%m%d_%H-%M-%s")
     en_texto = models.CharField(max_length=140)
     expediente = models.OneToOneField(Expediente, on_delete=models.CASCADE, verbose_name="tiene un")
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, verbose_name="tiene muchos")

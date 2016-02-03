@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	{% load staticfiles %}
+	<script type="text/javascript" src="{% static "jquery-1.12.0.min.js" %}"></script>
+	<link rel="stylesheet" type="text/css" href="{% static "default.css" %}">
+<head>
+	<title>ella.org</title>
+<!--
+    <script type="text/javascript">
+        var socket = new io.Socket();
+        socket.connect();
+        // etc
+    </script>
+-->
+</head>
+<body>
+	<center>
+		<h1>appella</h1>
+		<form action="" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+            {{ form.as_p }}
+			<input type="submit" value="enviar" />
+		</form>
+	</center>
+	<a href="/prueba" style="color:white;">ir a prueba</a>
+</body>
+</html>
