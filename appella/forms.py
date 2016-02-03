@@ -8,3 +8,4 @@ class FormaRegistro(forms.Form):
 	ap_paterno = forms.CharField(label='Apellido Paterno: ', max_length=25)
 	ap_materno = forms.CharField(label='Apellido Materno: ', max_length=25)
 	telefono = forms.IntegerField(min_value=MIN_CELULAR, max_value=MAX_CELULAR)
+	imagen = forms.FileField(max_length=256)

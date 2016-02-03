@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'appella',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -78,8 +79,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dbella',
-        'USER': 'ella',
-        'PASSWORD': 'ella',
+        'USER': 'alexg',
+        'PASSWORD': '@lexGuz1..',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
