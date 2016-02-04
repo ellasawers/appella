@@ -4,8 +4,9 @@ from django.template import loader
 from models import Usuario
 from django.template import RequestContext
 from forms import UploadFileForm
-from models import Area
-from .forms import FormaRegistro
+from models import Area, Perdido, Expediente
+from forms import FormaRegistro, FormaPerdido
+from datetime import datetime
 # Create your views here.
 def index(request):
 #	return render_to_response('index.html', context_instance=RequestContext(request))
@@ -25,7 +26,7 @@ def prueba(request):
 #            print "\nfileform=",fileform
 #            shutil.copy(fileform, "media/"+str(fileform))
 #            handle_uploaded_file(fileform)
-            return HttpResponseRedirect('/ella/')
+            return HttpResponseRedirect('/appella/')
     else:
         form = UploadFileForm()
     return render(request, 'index.html', {'form': form})
@@ -72,13 +73,38 @@ def registrar(request):
 				ap_paterno = formulario.cleaned_data['ap_paterno']
 				ap_materno = formulario.cleaned_data['ap_materno']
 				telefono = formulario.cleaned_data['telefono']
-				imagen = formulario.cleaned_data['imagen']
-				usuario_nuevo = Usuario(us_nombre=nombre, us_ap_paterno=ap_paterno, us_ap_materno=ap_materno, us_telefono=telefono, us_img=imagen, area=1)
-				usuario_nuevo.save()
-			return HttpResponseRedirect('/appella/registrar')
+				imagen = request.FILES['imagen']
+				usuario_nuevo = Usuario(us_nombre=nombre, us_ap_paterno=ap_paterno, us_ap_materno=ap_materno, us_telefono=telefono, us_img=imagen, area_id=1)
+				usuario_nuevo.save(formulario)
+			else:
+				print 'Error validando formulario'
+				print formulario.errors
+			return HttpResponseRedirect('/appella/registrar/')
 		except Exception as e:
 			print 'Error registrando nuevo Usuario: ', e
 	else:
 		formulario = FormaRegistro()
 	return render(request, 'registrar.html', {'form': formulario})
 
+def perdido(request):
+	if request.method == 'POST':
+		try:
+			formulario = FormaPerdido(request.POST, request.FILES)
+			if formulario.is_valid():
+				exp = Expediente(ex_estado='Nuevo')
+            			exp.save()
+				expediente_id = exp.id_expediente
+				fecha = datetime.now().date()
+				imagen = request.FILES['imagen']
+				texto = formulario.cleaned_data['texto']
+				perdido = Perdido(pe_fecha=fecha, pe_img=imagen, pe_texto=texto, expediente_id=expediente_id, usuario_id=1)
+				perdido.save(formulario)
+			else:
+				print 'Error validando formulario'
+				print formulario.errors
+			return HttpResponseRedirect('/appella/perdido/')
+		except Exception as e:
+			print 'Error registrando nuevo Perdido: ', e
+	else:
+		formulario = FormaPerdido()
+	return render(request, 'perdido.html', {'form': formulario})

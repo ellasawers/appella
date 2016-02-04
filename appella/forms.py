@@ -13,3 +13,7 @@ class FormaRegistro(forms.Form):
 	ap_materno = forms.CharField(label='Apellido Materno: ', max_length=25)
 	telefono = forms.IntegerField(min_value=MIN_CELULAR, max_value=MAX_CELULAR)
 	imagen = forms.FileField(max_length=256)
+
+class FormaPerdido(forms.Form):
+	imagen = forms.FileField(max_length=256)
+	texto = forms.CharField(label='Descripcion', max_length=140)
