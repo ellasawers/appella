@@ -6,10 +6,15 @@ from django.template import RequestContext
 from forms import UploadFileForm
 from models import Area
 from .forms import FormaRegistro
+
 # Create your views here.
 def index(request):
-#	return render_to_response('index.html', context_instance=RequestContext(request))
     template = loader.get_template('index.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
+
+def mapa(request):
+    template = loader.get_template('mapa.html')
     context = {}
     return HttpResponse(template.render(context, request))
 
@@ -21,11 +26,7 @@ def prueba(request):
             area.save()
             newdoc = Usuario(area_id=1,us_img = request.FILES['file'])
             newdoc.save(form)
-#            fileform = request.FILES['file'].read()
-#            print "\nfileform=",fileform
-#            shutil.copy(fileform, "media/"+str(fileform))
-#            handle_uploaded_file(fileform)
-            return HttpResponseRedirect('/ella/')
+            return HttpResponseRedirect('/appella/')
     else:
         form = UploadFileForm()
     return render(request, 'index.html', {'form': form})
@@ -81,4 +82,3 @@ def registrar(request):
 	else:
 		formulario = FormaRegistro()
 	return render(request, 'registrar.html', {'form': formulario})
-

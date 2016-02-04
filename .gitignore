@@ -7,3 +7,4 @@ Trashes
 *.pdf
 .gitignore
 appella/migrations/*
+appella/media/*
