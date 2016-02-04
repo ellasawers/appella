@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^prueba/$', views.prueba, name='prueba'),
     url(r'^registrar/$', views.registrar, name='registrar'),
     url(r'^perdido/$', views.perdido, name='perdido'),
+    url(r'^mapa/$', views.mapa),
 ]
 '''
     # ex: /polls/

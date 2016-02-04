@@ -1,16 +1,19 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
-from models import Usuario
+from models import Usuario, Area, Perdido, Expediente
 from django.template import RequestContext
-from forms import UploadFileForm
-from models import Area, Perdido, Expediente
-from forms import FormaRegistro, FormaPerdido
+from forms import UploadFileForm, FormaRegistro, FormaPerdido
 from datetime import datetime
+
 # Create your views here.
 def index(request):
-#	return render_to_response('index.html', context_instance=RequestContext(request))
     template = loader.get_template('index.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
+
+def mapa(request):
+    template = loader.get_template('mapa.html')
     context = {}
     return HttpResponse(template.render(context, request))
 
@@ -22,10 +25,6 @@ def prueba(request):
             area.save()
             newdoc = Usuario(area_id=1,us_img = request.FILES['file'])
             newdoc.save(form)
-#            fileform = request.FILES['file'].read()
-#            print "\nfileform=",fileform
-#            shutil.copy(fileform, "media/"+str(fileform))
-#            handle_uploaded_file(fileform)
             return HttpResponseRedirect('/appella/')
     else:
         form = UploadFileForm()
