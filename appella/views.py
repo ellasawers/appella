@@ -1,10 +1,10 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
-from models import Usuario, Area, Perdido, Expediente
+from models import Usuario, Perdido, Expediente
 from django.template import RequestContext
 from forms import UploadFileForm, FormaRegistro, FormaPerdido
-from datetime import datetime
+from django.utils import timezone
 
 # Create your views here.
 def index(request):
@@ -21,8 +21,6 @@ def prueba(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            area = Area(ar_lat1='212121')
-            area.save()
             newdoc = Usuario(area_id=1,us_img = request.FILES['file'])
             newdoc.save(form)
             return HttpResponseRedirect('/appella/')
@@ -73,7 +71,7 @@ def registrar(request):
 				ap_materno = formulario.cleaned_data['ap_materno']
 				telefono = formulario.cleaned_data['telefono']
 				imagen = request.FILES['imagen']
-				usuario_nuevo = Usuario(us_nombre=nombre, us_ap_paterno=ap_paterno, us_ap_materno=ap_materno, us_telefono=telefono, us_img=imagen, area_id=1)
+				usuario_nuevo = Usuario(us_nombre=nombre, us_ap_paterno=ap_paterno, us_ap_materno=ap_materno, us_telefono=telefono, us_img=imagen)
 				usuario_nuevo.save(formulario)
 			else:
 				print 'Error validando formulario'
@@ -93,7 +91,7 @@ def perdido(request):
 				exp = Expediente(ex_estado='Nuevo')
             			exp.save()
 				expediente_id = exp.id_expediente
-				fecha = datetime.now().date()
+				fecha = timezone.now()
 				imagen = request.FILES['imagen']
 				texto = formulario.cleaned_data['texto']
 				perdido = Perdido(pe_fecha=fecha, pe_img=imagen, pe_texto=texto, expediente_id=expediente_id, usuario_id=1)

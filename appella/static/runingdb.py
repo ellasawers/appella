@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import psycopg2, pyproj, sys
+import psycopg2
 from os import system
 from math import sin,cos,sqrt,asin,pi
 
