@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ejemplo django</title>
+</head>
+<body>
+	<h1>ejemplo lista perdidos</h1>
+		<center>
+		<table width="80%" bgcolor="gray">
+		  	<caption>Perdidos</caption>
+		  	<tr bgcolor="ligthgreen">
+				<th>Fecha</th>
+				<th>Imagen</th>
+				<th>texto</th>
+			</tr>
+			{% if lista_perdidos %}
+			    {% for perdido in lista_perdidos %}
+			    <tr bgcolor="white">
+			      <td>{{ perdido.pe_fecha | date:'Y-m-d H:i:s' }}</td>
+			      <td>{{ perdido.pe_img }}</td>
+			      <td>{{ perdido.pe_texto }}</td>
+					{% csrf_token %}
+<!--
+			      		<center><input type="submit" value="borrar" /></center>
+-->
+			    </tr>
+			    {% endfor %}
+			{% else %}
+			    <p>Perdidos no diponibles.</p>
+			{% endif %}
+		</table>
+		</center>
+		<br>
+</body>
+</html>

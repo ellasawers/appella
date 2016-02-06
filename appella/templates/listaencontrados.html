@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ejemplo django</title>
+</head>
+<body>
+	<h1>ejemplo lista encontrados</h1>
+		<center>
+		<table width="80%" bgcolor="gray">
+		  	<caption>Encontrados</caption>
+		  	<tr bgcolor="ligthgreen">
+				<th>Fecha</th>
+				<th>Imagen</th>
+				<th>texto</th>
+			</tr>
+			{% if lista_encontrados %}
+			    {% for encontrado in lista_encontrados %}
+			    <tr bgcolor="white">
+			      <td>{{ encontrado.en_fecha | date:'Y-m-d H:i:s' }}</td>
+			      <td>{{ encontrado.en_img }}</td>
+			      <td>{{ encontrado.en_texto }}</td>
+		      		{% csrf_token %}
+<!--
+			      		<center><input type="submit" value="borrar" /></center>
+-->
+			      </form>
+			    </tr>
+			    {% endfor %}
+			{% else %}
+			    <p>encontrados no diponibles.</p>
+			{% endif %}
+		</table>
+		</center>
+		<br>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static "default.css"%}">
+<form action="/appella/encontrado/" method="post" enctype="multipart/form-data">
+	<div class="divform">
+	{% csrf_token %}
+	{{ form }}
+	<br>
+	<center><input type="submit" value="Enviar"/></center>
+	</div>
+</form>

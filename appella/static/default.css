@@ -1,2 +1,8 @@
 body { background-color: blue; }
 h1{background-color:red;}
+.divform{width:200px;background-color:white;}
+#id_image{width:100%;}
+#id_texto{width:100%;}
+#id_id_ex{width:100%;}
+#id_id_us{width:100%;}
+input[type="submit"]{padding:0px;background-color:white;margin:2px;}

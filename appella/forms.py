@@ -17,3 +17,9 @@ class FormaRegistro(forms.Form):
 class FormaPerdido(forms.Form):
 	imagen = forms.FileField(max_length=256)
 	texto = forms.CharField(label='Descripcion', max_length=140)
+
+class FormaEncontrado(forms.Form):
+	image = forms.FileField(label='imagen',max_length=256)
+	texto = forms.CharField(label='Texto', max_length=140)
+	id_ex = forms.CharField(label='id_expediente', max_length=140)
+	id_us = forms.CharField(label='id_usuario', max_length=140)

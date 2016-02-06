@@ -10,6 +10,7 @@ PERDIDO (id, fecha, img, texto, usuario, expediente)
 ENCONTRADO (id, fecha, img, texto, usuario, expediente)
 '''
 
+
 class Usuario(models.Model):
     id_usuario = models.AutoField(primary_key=True)
     us_nombre = models.CharField(max_length=25)
@@ -50,7 +51,6 @@ class Articulos(models.Model):
     titulo = models.CharField(max_length=100)
     contenido = models.TextField()
     fecha = models.DateTimeField(auto_now_add=True)
-
     def __unicode__(self):
         return self.titulo
 '''

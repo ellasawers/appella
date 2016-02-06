@@ -1,9 +1,10 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
-from models import Usuario, Perdido, Expediente
+from models import Usuario, Perdido, Expediente, Encontrado
 from django.template import RequestContext
-from forms import UploadFileForm, FormaRegistro, FormaPerdido
+from forms import UploadFileForm, FormaRegistro, FormaPerdido, FormaEncontrado
+from datetime import datetime
 from django.utils import timezone
 
 # Create your views here.
@@ -21,7 +22,7 @@ def prueba(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            newdoc = Usuario(area_id=1,us_img = request.FILES['file'])
+            newdoc = Usuario(us_img = request.FILES['file'])
             newdoc.save(form)
             return HttpResponseRedirect('/appella/')
     else:
@@ -105,3 +106,44 @@ def perdido(request):
 	else:
 		formulario = FormaPerdido()
 	return render(request, 'perdido.html', {'form': formulario})
+
+def encontrado(request):
+	if request.method == 'POST':
+		try:
+			formulario = FormaEncontrado(request.POST, request.FILES)
+			if formulario.is_valid():
+				id_ex = formulario.cleaned_data['id_ex']
+				id_us = formulario.cleaned_data['id_us']
+				fecha = datetime.now().date()
+				image = request.FILES['image']
+				texto = formulario.cleaned_data['texto']
+				encontrado = Encontrado(en_fecha=fecha, en_img=image, en_texto=texto, expediente_id=1, usuario_id=1)
+				encontrado.save(formulario)
+			else:
+				print 'Error validando formulario'
+				print formulario.errors
+			return HttpResponseRedirect('/appella/encontrado/')
+		except Exception as e:
+			print 'Error registrando nuevo Encontrado: ', e
+	else:
+		formulario = FormaEncontrado()
+	return render(request, 'encontrar.html', {'form': formulario})
+
+def listaperdidos(request):
+    lista_perdidos = Perdido.objects.order_by('pe_fecha')
+    template = loader.get_template('listaperdidos.html')
+    return HttpResponse(template.render({'lista_perdidos': lista_perdidos}, request))
+
+def listaencontrados(request):
+    lista_encontrados = Encontrado.objects.order_by('en_fecha')
+    template = loader.get_template('listaencontrados.html')
+    return HttpResponse(template.render({'lista_encontrados': lista_encontrados}, request))
+
+def ejemplo3(request):
+#	return render_to_response('ejemplo2.html', {})
+    title_list = Articulos.objects.order_by('fecha')[:]
+    template = loader.get_template('ejemplo3.html')
+    context = {
+        'title_list': title_list,
+    }
+    return HttpResponse(template.render(context, request))
